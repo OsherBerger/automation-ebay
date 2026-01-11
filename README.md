@@ -24,8 +24,12 @@ It implements a Page Object Model (POM) architecture to manage pages, selectors,
 2. **Create and activate the virtual environment**
 
 - python -m venv venv
-- venv\Scripts\activate      # Windows OS
-- source venv/bin/activate   # macOS / Linux OS
+
+if you have Windows OS:
+- venv\Scripts\activate  
+
+if you have mac OS/ Linux OS:   
+- source venv/bin/activate  
 
 3. **Install dependencies**
 
