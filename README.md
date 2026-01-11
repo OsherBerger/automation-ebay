@@ -3,7 +3,7 @@
 This is an automated testing project for eBay using **Playwright**, Python, and **Pytest**.  
 It implements a Page Object Model (POM) architecture to manage pages, selectors, and test flows.
 
----
+
 
 ## 🔹 Prerequisites ✅
 
@@ -12,7 +12,7 @@ It implements a Page Object Model (POM) architecture to manage pages, selectors,
 - 🔧 Git (for version control)
 - 💻 Recommended: VS Code or another IDE
 
----
+
 
 ## 🔹 Setting up the environment ⚙️
 
@@ -25,10 +25,10 @@ It implements a Page Object Model (POM) architecture to manage pages, selectors,
 
 - python -m venv venv
 
-if you have Windows OS:
+    if you have Windows OS:
 - venv\Scripts\activate  
 
-if you have mac OS/ Linux OS:   
+    if you have mac OS/ Linux OS:   
 - source venv/bin/activate  
 
 3. **Install dependencies**
@@ -37,16 +37,20 @@ if you have mac OS/ Linux OS:
 - playwright install
 
 
-🔹 Running tests 🧪
-Run the end-to-end flow:
+## 🔹 Running tests 🧪
 - pytest tests/test_e2e_flow.py -s
 
 Optional flags:
+
 -s : Show print statements in real-time
+
 --maxfail=1 : Stop after first failure
+
 --alluredir=allure-results : Output for Allure reports
 
-🔹 Architecture 🏗️
+
+## 🔹 Architecture 🏗️
+
 pages/ → Page Objects (CartPage, ItemPage, SearchPage, BasePage)
 
 locators/ → All locators separated by page
@@ -57,10 +61,13 @@ utils/ → Helper functions (price parsing, CAPTCHA wait)
 
 data/ → Test data JSON files
 
-POM Pattern: Each page class contains interactions for a specific page.
+POM Pattern:
+
+Each page class contains interactions for a specific page.
 Selectors are stored in separate files for maintainability.
 
-🔹 Known limitations / assumptions ⚠️
+
+## 🔹 Known limitations / assumptions ⚠️
 Login is stubbed; all flows assume guest users.
 
 Prices are handled in USD/ILS; currency detection is minimal.
@@ -69,13 +76,13 @@ CAPTCHA requires manual solving.
 
 Some dropdowns may be skipped if out-of-stock.
 
-🔹 Screenshots & Reports 📸
+## 🔹 Screenshots & Reports 📸
 Screenshots are saved in screenshots/ automatically.
 
 Allure reports can be generated using:
 - allure serve allure-results
 
-🔹 Notes 📝
+## 🔹 Notes 📝
 Temporary folders and files are excluded from Git via .gitignore to reduce noise:
 
 venv/
@@ -85,9 +92,9 @@ playwright-profile*
 ebay_profile/
 
 
-### **.gitignore** 📂
+## **.gitignore** 📂
 
-# Python
+(Python)
 __pycache__/
 *.py[cod]
 *.pyo
@@ -98,23 +105,23 @@ venv/
 env/
 *.swp
 
-# Playwright
+(Playwright)
 playwright-report/
 playwright-profile*/  # temporary browser profiles
 
-# Screenshots
+(Screenshots)
 screenshots/
 
-# Allure reports
+(Allure reports)
 allure-results/
 
-# IDE / Editor
+(IDE / Editor)
 .vscode/
 .idea/
 
-# eBay specific temp folder
+(eBay specific temp folder)
 ebay_profile/
 
-# System files
+(System files)
 .DS_Store
 Thumbs.db
