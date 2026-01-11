@@ -94,7 +94,7 @@ ebay_profile/
 
 ## **.gitignore** 📂
 
-# Python
+##### Python
 __pycache__/
 *.py[cod]
 *.pyo
@@ -107,11 +107,11 @@ env/
 dist/
 build/
 
-# Playwright
+#### Playwright
 playwright-report/
 screenshots/
 
-# Allure reports
+### Allure reports
 allure-report/
 allure-results/
 
