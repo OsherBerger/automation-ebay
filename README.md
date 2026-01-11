@@ -94,34 +94,41 @@ ebay_profile/
 
 ## **.gitignore** 📂
 
-(Python)
+# Python
 __pycache__/
 *.py[cod]
 *.pyo
+*.pyc
 *.pyd
 *.env
-*.venv
 venv/
 env/
-*.swp
+*.egg-info/
+dist/
+build/
 
-(Playwright)
+# Playwright
 playwright-report/
-playwright-profile*/  # temporary browser profiles
-
-(Screenshots)
 screenshots/
 
-(Allure reports)
+# Allure reports
+allure-report/
 allure-results/
 
-(IDE / Editor)
+# Pytest
+.cache/
+.pytest_cache/
+
+# IDEs / Editors
 .vscode/
 .idea/
+*.sublime-project
+*.sublime-workspace
 
-(eBay specific temp folder)
-ebay_profile/
-
-(System files)
+# OS
 .DS_Store
 Thumbs.db
+
+# Playwright user data / browser profiles
+playwright-profile*/
+ebay_profile/
