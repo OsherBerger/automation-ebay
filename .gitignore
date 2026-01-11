@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyc
+*.pyd
+*.env
+venv/
+env/
+*.egg-info/
+dist/
+build/
+
+# Playwright
+playwright-report/
+screenshots/
+
+# Allure reports
+allure-report/
+allure-results/
+
+# Pytest
+.cache/
+.pytest_cache/
+
+# IDEs / Editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Playwright user data / browser profiles
+playwright-profile*/
+ebay_profile/
