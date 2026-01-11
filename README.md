@@ -1,48 +1,48 @@
-# Automation eBay Project
+# 🚀 Automation eBay Project
 
 This is an automated testing project for eBay using **Playwright**, Python, and **Pytest**.  
 It implements a Page Object Model (POM) architecture to manage pages, selectors, and test flows.
 
 ---
 
-## 🔹 Prerequisites
+## 🔹 Prerequisites ✅
 
-- Python 3.11+
-- Node.js (required for Playwright)
-- Git (for version control)
-- Recommended: VS Code or another IDE
+- 🐍 Python 3.11+
+- 🌐 Node.js (required for Playwright)
+- 🔧 Git (for version control)
+- 💻 Recommended: VS Code or another IDE
 
 ---
 
-## 🔹 Setting up the environment (run commands via terminal)
+## 🔹 Setting up the environment ⚙️
 
 1. **Clone the repository** 
 
-git clone https://github.com/OsherBerger/automation-ebay.git
-cd automation-ebay
+- git clone https://github.com/OsherBerger/automation-ebay.git
+- cd automation-ebay
 
 2. **Create and activate the virtual environment**
 
-python -m venv venv
-venv\Scripts\activate      # Windows OS
-source venv/bin/activate   # macOS / Linux OS
+- python -m venv venv
+- venv\Scripts\activate      # Windows OS
+- source venv/bin/activate   # macOS / Linux OS
 
 3. **Install dependencies**
 
-pip install -r requirements.txt
-playwright install
+- pip install -r requirements.txt
+- playwright install
 
 
-🔹 Running tests
+🔹 Running tests 🧪
 Run the end-to-end flow:
-pytest tests/test_e2e_flow.py -s
+- pytest tests/test_e2e_flow.py -s
 
-Optional:
+Optional flags:
 -s : Show print statements in real-time
 --maxfail=1 : Stop after first failure
 --alluredir=allure-results : Output for Allure reports
 
-🔹 Architecture
+🔹 Architecture 🏗️
 pages/ → Page Objects (CartPage, ItemPage, SearchPage, BasePage)
 
 locators/ → All locators separated by page
@@ -56,7 +56,7 @@ data/ → Test data JSON files
 POM Pattern: Each page class contains interactions for a specific page.
 Selectors are stored in separate files for maintainability.
 
-🔹 Known limitations / assumptions
+🔹 Known limitations / assumptions ⚠️
 Login is stubbed; all flows assume guest users.
 
 Prices are handled in USD/ILS; currency detection is minimal.
@@ -65,13 +65,13 @@ CAPTCHA requires manual solving.
 
 Some dropdowns may be skipped if out-of-stock.
 
-🔹 Screenshots & Reports
+🔹 Screenshots & Reports 📸
 Screenshots are saved in screenshots/ automatically.
 
 Allure reports can be generated using:
-allure serve allure-results
+- allure serve allure-results
 
-🔹 Notes
+🔹 Notes 📝
 Temporary folders and files are excluded from Git via .gitignore to reduce noise:
 
 venv/
@@ -81,9 +81,8 @@ playwright-profile*
 ebay_profile/
 
 
-### **.gitignore**
+### **.gitignore** 📂
 
-```gitignore
 # Python
 __pycache__/
 *.py[cod]
