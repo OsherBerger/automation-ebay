@@ -1,4 +1,4 @@
-class SearchSelectors:
+class SearchLocators:
     SEARCH_INPUT = "#gh-ac"
     SEARCH_BUTTON = "#gh-search-btn"
 

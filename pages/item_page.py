@@ -1,6 +1,6 @@
 from pages.base_page import BasePage
 from playwright.sync_api import TimeoutError
-from locators.item_selectors import ItemSelectors
+from locators.item_locators import ItemLocators
 import random
 
 
@@ -34,7 +34,7 @@ class ItemPage(BasePage):
             - Avoids selecting disabled or out-of-stock options.
             - Safely continues if no valid option is found for a dropdown.
         """
-        buttons = self.page.locator(ItemSelectors.VARIANT_BUTTONS)
+        buttons = self.page.locator(ItemLocators.VARIANT_BUTTONS)
 
         for i in range(buttons.count()):
             button = buttons.nth(i)
@@ -65,7 +65,7 @@ class ItemPage(BasePage):
 
                 if not option.is_visible():
                     continue
-                if ItemSelectors.OUT_OF_STOCK_CLASS in (option.get_attribute("class") or ""):
+                if ItemLocators.OUT_OF_STOCK_CLASS in (option.get_attribute("class") or ""):
                     continue
 
                 valid_options.append(option)
@@ -107,6 +107,6 @@ class ItemPage(BasePage):
             # Variant selection may fail on some items; continue gracefully
             pass
 
-        self.page.wait_for_selector(ItemSelectors.ADD_TO_CART)
-        self.page.click(ItemSelectors.ADD_TO_CART)
+        self.page.wait_for_selector(ItemLocators.ADD_TO_CART)
+        self.page.click(ItemLocators.ADD_TO_CART)
         self.screenshot(f"cart_item_added_{random.randint(1000, 9999)}.png")

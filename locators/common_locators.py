@@ -1,2 +1,2 @@
-class CommonSelectors:
+class CommonLocators:
     CAPTCHA_IFRAME = "iframe[src*='captcha']"

@@ -1,20 +1,20 @@
 from pages.base_page import BasePage
 from utils.price_parser import parse_price
-from locators.search_selectors import SearchSelectors
+from locators.search_locators import SearchLocators
 class SearchPage(BasePage):
 
     def search_items_under_price(self, query: str, min_price: float, max_price: float, limit: int = 5):
-        self.page.fill(SearchSelectors.SEARCH_INPUT, query)
-        self.page.click(SearchSelectors.SEARCH_BUTTON)
+        self.page.fill(SearchLocators.SEARCH_INPUT, query)
+        self.page.click(SearchLocators.SEARCH_BUTTON)
         
         # wait for the page and filter inputs to appear
-        self.page.wait_for_selector(SearchSelectors.PRICE_MIN_INPUT)
-        self.page.wait_for_selector(SearchSelectors.PRICE_MAX_INPUT)
+        self.page.wait_for_selector(SearchLocators.PRICE_MIN_INPUT)
+        self.page.wait_for_selector(SearchLocators.PRICE_MAX_INPUT)
         
         # -----------------------------
         # Type min price
         # -----------------------------
-        min_input = self.page.locator(SearchSelectors.PRICE_MIN_INPUT)
+        min_input = self.page.locator(SearchLocators.PRICE_MIN_INPUT)
         min_input.click()
         min_input.fill("")  # clear existing value
         min_input.type(min_price)  # type slowly, triggers events
@@ -22,13 +22,13 @@ class SearchPage(BasePage):
         # -----------------------------
         # Type max price
         # -----------------------------
-        max_input = self.page.locator(SearchSelectors.PRICE_MAX_INPUT)
+        max_input = self.page.locator(SearchLocators.PRICE_MAX_INPUT)
         max_input.click()
         max_input.fill("")
         max_input.type(max_price)
 
         # Apply filter
-        self.page.locator(SearchSelectors.PRICE_FILTER_APPLY).click()
+        self.page.locator(SearchLocators.PRICE_FILTER_APPLY).click()
 
         # small wait for results to update
         self.page.wait_for_timeout(1000)
@@ -36,9 +36,9 @@ class SearchPage(BasePage):
         results = []
 
         while len(results) < limit:
-            self.page.wait_for_selector(SearchSelectors.ITEM_PRICE)
-            prices = self.page.locator(SearchSelectors.ITEM_PRICE)
-            links = self.page.locator(SearchSelectors.ITEM_LINK)
+            self.page.wait_for_selector(SearchLocators.ITEM_PRICE)
+            prices = self.page.locator(SearchLocators.ITEM_PRICE)
+            links = self.page.locator(SearchLocators.ITEM_LINK)
 
             count = prices.count()
 
@@ -63,10 +63,10 @@ class SearchPage(BasePage):
                 if len(results) == limit:
                     break
 
-            if self.page.locator(SearchSelectors.NEXT_BUTTON).count() == 0:
+            if self.page.locator(SearchLocators.NEXT_BUTTON).count() == 0:
                 break
 
-            self.page.click(SearchSelectors.NEXT_BUTTON)
+            self.page.click(SearchLocators.NEXT_BUTTON)
             self.page.wait_for_timeout(500)
 
         return results

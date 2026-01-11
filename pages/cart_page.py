@@ -1,5 +1,5 @@
 from pages.base_page import BasePage
-from locators.cart_selectors import CartSelectors
+from locators.cart_locators import CartLocators
 import re
 
 class CartPage(BasePage):
@@ -17,7 +17,7 @@ class CartPage(BasePage):
         Raises:
             ValueError: If no numeric value can be parsed from the subtotal text.
         """
-        text = self.page.locator(CartSelectors.SUBTOTAL_VALUE).inner_text()
+        text = self.page.locator(CartLocators.SUBTOTAL_VALUE).inner_text()
         match = re.search(r"[\d,.]+", text)
         if not match:
             raise ValueError(f"Could not parse a numeric total from: {text}")
