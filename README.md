@@ -95,7 +95,7 @@ ebay_profile/
 ## **.gitignore** 📂
 
 ##### Python
-__pycache__/
+_pycache__/
 *.py[cod]
 *.pyo
 *.pyc
@@ -107,28 +107,28 @@ env/
 dist/
 build/
 
-#### Playwright
+##### Playwright
 playwright-report/
 screenshots/
 
-### Allure reports
+##### Allure reports
 allure-report/
 allure-results/
 
-# Pytest
+##### Pytest
 .cache/
 .pytest_cache/
 
-# IDEs / Editors
+##### IDEs / Editors
 .vscode/
 .idea/
 *.sublime-project
 *.sublime-workspace
 
-# OS
+##### OS
 .DS_Store
 Thumbs.db
 
-# Playwright user data / browser profiles
+##### Playwright user data / browser profiles
 playwright-profile*/
 ebay_profile/
