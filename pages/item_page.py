@@ -43,24 +43,20 @@ class ItemPage(BasePage):
                 continue
 
             text = button.inner_text().lower()
-            if not any(k in text for k in ["size", "color", "style", "width"]):
+            if not any(k in text for k in ["size", "color","colour", "style", "width","qty"]):
                 continue
 
-            # Open the dropdown
             button.click()
             self.page.wait_for_timeout(150)
 
-            # Resolve options related specifically to this dropdown
             dropdown_id = button.get_attribute("aria-controls")
             if dropdown_id:
                 options = self.page.locator(f"#{dropdown_id} .listbox__option")
             else:
-                # Fallback: only visible options
                 options = self.page.locator(".listbox__option:visible")
 
-            # Collect valid (enabled & visible) options
             valid_options = []
-            for j in range(1, options.count()):  # skip placeholder
+            for j in range(1, options.count()):  
                 option = options.nth(j)
 
                 if not option.is_visible():
@@ -74,7 +70,6 @@ class ItemPage(BasePage):
                 print(f"⚠️ No valid options for '{text}', skipping this dropdown")
                 continue
 
-            # Select option
             selected_option = (
                 valid_options[0]
                 if pick_second
@@ -104,7 +99,6 @@ class ItemPage(BasePage):
         try:
             self.choose_all_variants(pick_second=pick_second)
         except TimeoutError:
-            # Variant selection may fail on some items; continue gracefully
             pass
 
         self.page.wait_for_selector(ItemLocators.ADD_TO_CART)

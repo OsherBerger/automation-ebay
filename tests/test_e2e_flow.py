@@ -28,7 +28,7 @@ def test_full_flow():
         print(f"Found {len(urls)} valid items.")
         for index, url in enumerate(urls):
             print(f"Navigating to item {index+1}: {url}")
-            page.goto(url, wait_until="domcontentloaded",timeout=15_000)
+            page.goto(url, wait_until="domcontentloaded")
             wait_for_captcha(page)
             try:
                 item.add_to_cart()
@@ -37,7 +37,7 @@ def test_full_flow():
             item.human_wait(500, 1000)
 
         print("Going to cart to assert totals...")
-        page.goto("https://cart.ebay.com",wait_until="domcontentloaded",timeout=15_000 )
+        page.goto("https://cart.ebay.com",wait_until="domcontentloaded")
         wait_for_captcha(page)
         cart.assert_total_not_exceeds(float(data["max_price"]), len(urls))
         cart.screenshot(f"cart_subtotal{random.randint(1000,9999)}.png")

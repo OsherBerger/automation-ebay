@@ -3,6 +3,23 @@ from locators.cart_locators import CartLocators
 import re
 
 class CartPage(BasePage):
+    """
+    Page Object representing the shopping cart page.
+
+    This class encapsulates all interactions and validations related to
+    the eBay cart page, including reading cart totals and asserting
+    pricing constraints.
+
+    Responsibilities:
+        - Access and parse the cart subtotal value.
+        - Validate that the cart total stays within a defined budget.
+        - Provide reusable cart-related assertions for end-to-end tests.
+
+    Notes:
+        - Assumes a guest checkout flow (no authentication required).
+        - Currency symbols and formatting are stripped before calculations.
+        - Designed to be used as part of a Page Object Model (POM) architecture.
+    """
 
     def get_total(self) -> float:
         """
