@@ -8,8 +8,8 @@ from utils.captcha import wait_for_captcha
 
 def test_full_flow():
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False, slow_mo=50)  # faster human-like
-        page = browser.new_page()
+        browser = p.chromium.launch(headless=False, slow_mo=50)
+        page = browser.new_page(record_video_dir="videos/")
 
         data = json.load(open("data/test_data.json"))
 

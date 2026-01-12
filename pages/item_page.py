@@ -2,43 +2,38 @@ from pages.base_page import BasePage
 from playwright.sync_api import TimeoutError
 from locators.item_locators import ItemLocators
 import random
-
+import time
 
 class ItemPage(BasePage):
     """
-    Page Object representing an individual item/product page.
+    Page Object representing an individual eBay product/item page.
 
-    This page handles variant selection (such as size, color, style, width)
-    and the process of adding an item to the shopping cart.
+    Responsibilities:
+        - Select product variants (size, color, style, width, quantity).
+        - Skip out-of-stock or disabled options.
+        - Add item to the cart.
+        - Attach screenshots and video recordings for Allure reports.
     """
 
     def choose_all_variants(self, pick_second: bool = True):
         """
-        Selects valid options for all relevant product variants.
-
-        This method iterates through all variant dropdowns (e.g. size, color,
-        style, width), opens each dropdown, and selects a valid option while
-        skipping placeholders and out-of-stock/disabled entries.
-
-        The selection strategy can be controlled via the `pick_second` flag.
+        Selects valid options for all relevant product variants on the item page.
 
         Args:
-            pick_second (bool, optional):
-                If True, selects the first valid option after the placeholder.
-                If False, selects a random valid option.
+            pick_second (bool, optional): If True, selects the first valid option
+                after the placeholder. If False, selects a random valid option.
                 Defaults to True.
 
         Behavior:
-            - Skips hidden variant dropdowns.
-            - Ignores dropdowns that are not related to known variant types.
-            - Avoids selecting disabled or out-of-stock options.
-            - Safely continues if no valid option is found for a dropdown.
+            - Iterates through all variant dropdowns.
+            - Skips hidden or non-relevant dropdowns.
+            - Ignores out-of-stock/disabled options.
+            - Continues gracefully if no valid option is available.
         """
         buttons = self.page.locator(ItemLocators.VARIANT_BUTTONS)
 
         for i in range(buttons.count()):
             button = buttons.nth(i)
-
             if not button.is_visible():
                 continue
 
@@ -56,25 +51,19 @@ class ItemPage(BasePage):
                 options = self.page.locator(".listbox__option:visible")
 
             valid_options = []
-            for j in range(1, options.count()):  
+            for j in range(1, options.count()):
                 option = options.nth(j)
-
                 if not option.is_visible():
                     continue
                 if ItemLocators.OUT_OF_STOCK_CLASS in (option.get_attribute("class") or ""):
                     continue
-
                 valid_options.append(option)
 
             if not valid_options:
                 print(f"⚠️ No valid options for '{text}', skipping this dropdown")
                 continue
 
-            selected_option = (
-                valid_options[0]
-                if pick_second
-                else random.choice(valid_options)
-            )
+            selected_option = valid_options[0] if pick_second else random.choice(valid_options)
             selected_option.click()
             self.page.wait_for_timeout(150)
 
@@ -82,19 +71,15 @@ class ItemPage(BasePage):
         """
         Adds the current item to the shopping cart.
 
-        This method attempts to select all required product variants before
-        clicking the 'Add to Cart' button. Variant selection failures are
-        handled gracefully to prevent test interruption.
-
         Args:
-            pick_second (bool, optional):
-                Passed through to variant selection logic to control
-                how options are chosen. Defaults to True.
+            pick_second (bool, optional): Passed to variant selection logic
+                to control which options are chosen. Defaults to True.
 
         Behavior:
-            - Attempts variant selection with fault tolerance.
-            - Waits for the 'Add to Cart' button to be available.
-            - Takes a screenshot after the item is added to the cart.
+            - Attempts variant selection.
+            - Waits for the 'Add to Cart' button.
+            - Clicks the button to add the item to cart.
+            - Captures screenshot and video recording for Allure report.
         """
         try:
             self.choose_all_variants(pick_second=pick_second)
@@ -103,4 +88,8 @@ class ItemPage(BasePage):
 
         self.page.wait_for_selector(ItemLocators.ADD_TO_CART)
         self.page.click(ItemLocators.ADD_TO_CART)
-        self.screenshot(f"cart_item_added_{random.randint(1000, 9999)}.png")
+
+        # 📸 Screenshot after adding to cart
+        time.sleep(3)
+        self.screenshot("item_added")
+

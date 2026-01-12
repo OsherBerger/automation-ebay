@@ -150,6 +150,7 @@ build/
 ### Playwright
 playwright-report/
 screenshots/
+videos/
 
 ### Allure reports
 allure-report/

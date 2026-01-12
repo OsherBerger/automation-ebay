@@ -1,7 +1,7 @@
 from pages.base_page import BasePage
 from locators.cart_locators import CartLocators
 import re
-
+import time
 class CartPage(BasePage):
     """
     Page Object representing the shopping cart page.
@@ -57,3 +57,8 @@ class CartPage(BasePage):
         total = self.get_total()
         print("Total is:",total)
         assert total <= budget_per_item * items_count
+
+
+        # 🎥 Attach video to Allure if available
+        time.sleep(3)
+        self.attach_video("item_video")

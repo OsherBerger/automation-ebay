@@ -1,49 +1,66 @@
-from playwright.sync_api import Page
+import allure
+from pathlib import Path
 import random
-
 
 class BasePage:
     """
-    Base class for all Page Objects.
+    Base page object containing common methods for all pages.
 
-    Provides common browser actions and utilities that are shared
-    across all pages in the application (navigation, screenshots,
-    human-like waits, etc.).
+    This class provides helper functions to take screenshots, attach videos
+    to Allure reports, and common interactions that might be reused across
+    different pages.
     """
 
-    def __init__(self, page: Page):
+    def __init__(self, page):
         """
-        Initializes the BasePage with a Playwright Page instance.
+        Initializes the BasePage.
 
         Args:
-            page (Page): Playwright page object representing the browser tab.
+            page (Page): Playwright Page instance to interact with.
         """
         self.page = page
 
+
     def open(self, url: str):
         """
-        Navigates the browser to the specified URL.
-
-        This method performs a direct navigation without explicitly
-        waiting for full page load, allowing faster test execution.
-        Any required waits should be handled by the calling page.
+        Navigates the Playwright page to the given URL.
 
         Args:
-            url (str): The URL to navigate to.
+            url (str): The target URL to open.
         """
         self.page.goto(url)
-
+        
     def screenshot(self, name: str):
         """
-        Captures a screenshot of the current page.
-
-        The screenshot is saved under the 'screenshots/' directory
-        with the provided name.
+        Takes a screenshot of the current page and attaches it to the Allure report.
 
         Args:
-            name (str): File name for the screenshot (without extension).
+            name (str): Name to identify the screenshot in the report.
+
+        Behavior:
+            - Saves screenshot in `screenshots/` directory.
+            - Attaches screenshot to Allure report automatically.
         """
-        self.page.screenshot(path=f"screenshots/{name}.png")
+        Path("screenshots").mkdir(exist_ok=True)
+        path = f"screenshots/{name}_{random.randint(1000,9999)}.png"
+        self.page.screenshot(path=path)
+        allure.attach.file(path, name=name, attachment_type=allure.attachment_type.PNG)
+
+    def attach_video(self, name: str = "Video Recording"):
+        """
+        Attaches a video of the current page to the Allure report if available.
+
+        Args:
+            name (str): Name to identify the video in the Allure report.
+
+        Behavior:
+            - Looks for Playwright's recorded video of the page.
+            - Attaches the video to Allure report as WEBM file.
+        """
+        if hasattr(self.page, "video") and self.page.video:
+            video_path = self.page.video.path()
+            if Path(video_path).exists():
+                allure.attach.file(video_path, name=name, attachment_type=allure.attachment_type.WEBM)
 
     def human_wait(self, min_ms: int = 100, max_ms: int = 300):
         """
