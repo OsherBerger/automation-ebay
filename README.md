@@ -37,8 +37,7 @@ It implements a Page Object Model (POM) architecture to manage pages, selectors,
     Run a single test:
 - pytest tests/test_e2e_flow.py -s 
     Run all tests with Allure report:
-- ar.bat    ## or even "ar" in short
-
+- ar.bat # also 'ar' works   
 
 Optional flags:
 
@@ -80,7 +79,7 @@ Notes:
 
 - After setup, generate reports easily with:
 
-ar.bat  # custom script to serve Allure reports
+ar.bat # also 'ar' works  (custom script to serve Allure reports)
     or
 allure serve allure-results
 
@@ -118,7 +117,7 @@ Some dropdowns may be skipped if out-of-stock.
 Screenshots are saved in screenshots/ automatically.
 
 Allure reports can be generated using:
-- ar.bat 
+- ar.bat # also 'ar' works
     or 
 - pytest tests/ -s --alluredir=allure-results
 - allure serve allure-results
