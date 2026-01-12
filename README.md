@@ -24,12 +24,8 @@ It implements a Page Object Model (POM) architecture to manage pages, selectors,
 2. **Create and activate the virtual environment**
 
 - python -m venv venv
-
-    if you have Windows OS:
-- venv\Scripts\activate  
-
-    if you have mac OS/ Linux OS:   
-- source venv/bin/activate  
+- venv\Scripts\activate      # Windows
+- source venv/bin/activate   # macOS / Linux
 
 3. **Install dependencies**
 
@@ -38,7 +34,11 @@ It implements a Page Object Model (POM) architecture to manage pages, selectors,
 
 
 ## 🔹 Running tests 🧪
-- pytest tests/test_e2e_flow.py -s
+    Run a single test:
+- pytest tests/test_e2e_flow.py -s 
+    Run all tests with Allure report:
+- ar.bat    ## or even "ar" in short
+
 
 Optional flags:
 
@@ -48,6 +48,44 @@ Optional flags:
 
 --alluredir=allure-results : Output for Allure reports
 
+## 🔹 Allure CLI Setup ✨
+To simplify Allure setup, the project includes a helper script:
+
+- Windows: install_allure.bat
+
+- macOS / Linux: install_allure.sh (if provided)
+
+What it does:
+
+1.Downloads the latest Allure CLI release.
+
+2.Extracts it to a permanent folder (default: %USERPROFILE%\allure on Windows).
+
+3.Adds allure/bin to your system PATH automatically.
+
+Usage:
+
+# Run in the project folder
+install_allure.bat
+
+# Check installation
+allure --version
+
+
+Notes:
+
+- Run this script once per machine.
+
+- If your PATH already includes Allure, you can skip this step.
+
+- After setup, generate reports easily with:
+
+ar.bat  # custom script to serve Allure reports
+    or
+allure serve allure-results
+
+
+⚠️ Important: The custom ar.bat script automatically clears previous results before serving the new report to avoid duplicates.
 
 ## 🔹 Architecture 🏗️
 
@@ -80,6 +118,9 @@ Some dropdowns may be skipped if out-of-stock.
 Screenshots are saved in screenshots/ automatically.
 
 Allure reports can be generated using:
+- ar.bat 
+    or 
+- pytest tests/ -s --alluredir=allure-results
 - allure serve allure-results
 
 ## 🔹 Notes 📝
